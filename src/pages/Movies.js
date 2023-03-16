@@ -1,52 +1,60 @@
-import { useState, useEffect } from 'react';
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState} from 'react';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import { Link } from "react-router-dom";
+// import toast, { Toaster } from 'react-hot-toast';
+
 
 export const Movies = () => {
-  const [cards, setCards] = useState([]);
-  // const [page, setPage] = useState(1);
-  const [textSearch, setTextSearch] = useState("");
-
-  // const [error, setError] = useState("");
-
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieName = searchParams.get("query") ?? "";
 
   useEffect(() => {
-    if (textSearch !== "") {
-      async function fetchFilms(textSearch) {
-        try {
-          const url = 'https://api.themoviedb.org/3/search/movie?';
-          const key = '6bf6ef2ab5ece9f25b4bdae1dc149130';
-          const response = await axios.get(`${url}api_key=${key}&query=${textSearch}`);
-          setCards([...response.data.results]);
-          console.log(response.data.results)
-        } catch (error) {
-          console.log(error.message);
-        }
-      }
-      fetchFilms();
+    if (movieName === "") return;
+  async function fetchFilms(movieName) {
+try {
+const url = 'https://api.themoviedb.org/3/search/movie?';
+const key = '6bf6ef2ab5ece9f25b4bdae1dc149130';
+const response = await axios.get(`${url}api_key=${key}&query=${movieName}&language=en-US&page=1&include_adult=false`);
+  // console.log(response.data.results)
+  setMovies(response.data.results);
+} catch (error) {
+console.log(error.message);
+}
     }
-  }, [textSearch])
+    fetchFilms(movieName);
 
-  const handleChange = (event) => {
-    setTextSearch(event.target.value) 
+}, [movieName])
+
+console.log(movies)
     
-  }
-
-  const handleSubmit = (e, textSearch) => {
-    e.preventDefault()
-    if (!textSearch) {
-      return toast.error('Sorry, the search field is empty 😒')
+const visibleMovies = movies.filter(movie => movie.title.toLowerCase().includes(movieName.toLowerCase()))
+  
+  // const updateQueryString = (query) => {
+  //   const nextParams = query !== "" ? { query } : {};
+  //   setSearchParams(nextParams);
+  // };
+ 
+  const updateQueryString = evt => {
+    const movieValue = evt.target.value;
+    if (movieValue === '') {
+      return setSearchParams({});
     }
-    setTextSearch(textSearch);
-    setCards([]);
-  }
+    setSearchParams({ query: movieValue });
+  };
+
   
     return <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" autoComplete="off" value={textSearch} onChange={handleChange}></input>
-        <button type="submit"></button>
-        <ul>{cards.map(card => (<li key={card.id}><p>{ card.original_title}</p></li>))}</ul>
-      </form>
-      <Toaster position="top-right"/>
+      <input type="text" value={movieName} onChange={updateQueryString}></input>
+      <button type="submit">Search</button>
+      <ul>
+        {visibleMovies.map(movie => {
+          return <li key={movie.id}>
+<Link to={`${movie.id}`}>{ movie.title}</Link>
+          </li>
+        })}
+      </ul>
+      {/* <Toaster position="top-right"/> */}
     </div>
 }
