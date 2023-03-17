@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 export const Home = () => {
-    const [films, setFilms] = useState([]);
+  const [films, setFilms] = useState([]);
+  const location = useLocation(); 
 
     useEffect(() => {
       async function fetchData() {
@@ -24,6 +25,6 @@ export const Home = () => {
 
     return <div>
         <h2>Trending today</h2>
-        <ul>{films.map(film => (<li key={film.id}><Link to={`movies/${film.id}`}>{ film.title}</Link></li>))}</ul>
+        <ul>{films.map(film => (<li key={film.id}><Link to={`movies/${film.id}`} state={{from: location}}>{ film.title}</Link></li>))}</ul>
     </div>
 }

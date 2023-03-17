@@ -25,7 +25,9 @@ export const Cast = () => {
 
     
     return <ul>{actors.map(actor => <li key={actor.cast_id}>
-        <img src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt=""/>
+        {actor.profile_path
+            ? <img src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt="" />
+            : <img src="http://tinleychamber.org/wp-content/uploads/2019/01/no-image-available.png" alt="" width="200"/>}
         <h4>{actor.name}</h4>
         <p>Character: {actor.character}</p></li>)}</ul>
 }
