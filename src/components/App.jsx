@@ -5,6 +5,7 @@ import { Movies } from "pages/Movies";
 
 import { Routes, Route, Link } from "react-router-dom";
 import { Cast } from "./Cast";
+import { Item, Nav } from "./Nav.styled";
 import { Reviews } from "./Reviews";
 
 
@@ -14,8 +15,10 @@ export const App = () => {
   return (
     <div>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/movies">Movies</Link>
+        <Nav>
+          <Item><Link to="/" style={{ color: "white", textDecoration: "none"}}>Home</Link></Item>
+        <Item><Link to="/movies" style={{ color: "white", textDecoration: "none" }}>Movies</Link></Item>
+          </Nav>
       </nav>
       <Routes>
         <Route path="/" element={<Home />}/>

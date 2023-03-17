@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Layout } from 'components/Layout';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
@@ -23,8 +24,8 @@ export const Home = () => {
     }, [])
     
 
-    return <div>
+    return <Layout>
         <h2>Trending today</h2>
         <ul>{films.map(film => (<li key={film.id}><Link to={`movies/${film.id}`} state={{from: location}}>{ film.title}</Link></li>))}</ul>
-    </div>
+    </Layout>
 }

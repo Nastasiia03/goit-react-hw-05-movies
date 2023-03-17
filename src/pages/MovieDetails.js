@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { Layout } from 'components/Layout';
 
 
 export const MovieDetails = () => {
@@ -31,7 +32,7 @@ export const MovieDetails = () => {
     const { poster_path, title, overview, genres} = movie; 
   
     
-    return <div>
+    return <Layout>
         <Link to={backLinkRef.current}>Go back</Link>
         {poster_path
             ? <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} width="350" />
@@ -46,5 +47,5 @@ export const MovieDetails = () => {
         <li><Link to="reviews">Reviews</Link></li>
         </ul>
         <Outlet/>
-    </div>
+    </Layout>
 }
