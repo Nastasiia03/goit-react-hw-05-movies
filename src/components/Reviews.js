@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ReviewsContent, ReviewsList, ReviewsTitle } from './styles/Reviews.styled';
 
-export const Reviews = () => {
+const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     const { movieId } = useParams(); 
     
@@ -32,3 +32,5 @@ export const Reviews = () => {
         : (<p>We don't have any reviews for this movie</p>)}
         </div>
 }
+
+export default Reviews;

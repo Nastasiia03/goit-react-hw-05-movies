@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Layout } from 'components/Layout';
 import { GoBackButton, InfoButtons, InfoDiv, Movie, MovieTitle, Poster } from 'components/styles/MovieDetails.styled';
+import { Suspense } from 'react';
 
 
 const MovieDetails = () => {
@@ -53,7 +54,9 @@ const MovieDetails = () => {
         <InfoButtons><Link to="cast" style={{ color: "white", textDecoration: "none"}}>Cast</Link></InfoButtons>
         <InfoButtons><Link to="reviews" style={{ color: "white", textDecoration: "none"}}>Reviews</Link></InfoButtons>
         </InfoDiv>
+        <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
+        </Suspense>
             
     </Layout>
 }

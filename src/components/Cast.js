@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ActorItem, ActorsList, Character } from './styles/Cast.styled';
 
-export const Cast = () => {
+const Cast = () => {
     const [actors, setActors] = useState([]);
     const { movieId } = useParams(); 
 
@@ -32,3 +32,5 @@ export const Cast = () => {
         <h4>{actor.name}</h4>
         <Character>Character: {actor.character}</Character></ActorItem>)}</ActorsList>
 }
+
+export default Cast; 
