@@ -53,7 +53,7 @@ margin-bottom: 70px;
 
 export const InfoButtons = styled.button`
 background-color: #4a4d4b;
-width: 169px;
+width: 145px;
 border-radius: .75rem;
 border: 1px solid transparent;
 cursor: pointer;

@@ -13,7 +13,6 @@ const Reviews = () => {
                 const url = 'https://api.themoviedb.org/3/movie/';
                 const key = '6bf6ef2ab5ece9f25b4bdae1dc149130';
                 const response = await axios.get(`${url}${movieId}/reviews?api_key=${key}`);
-                console.log(response.data.results)
                 
                setReviews(response.data.results);
             } catch (error) {

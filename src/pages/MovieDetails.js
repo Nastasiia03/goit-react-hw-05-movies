@@ -19,7 +19,6 @@ const MovieDetails = () => {
                 const url = 'https://api.themoviedb.org/3/movie/';
                 const key = '6bf6ef2ab5ece9f25b4bdae1dc149130';
                 const response = await axios.get(`${url}${movieId}?api_key=${key}`);
-                console.log(response.data)
                 
                setMovie(response.data);
             } catch (error) {
@@ -39,7 +38,7 @@ const MovieDetails = () => {
         <Movie>
             <div>
         {poster_path
-            ? <Poster src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} width="350" />
+            ? <Poster src={`https://image.tmdb.org/t/p/w400/${poster_path}`} alt={title} width="300" />
                     : <Poster src="https://i.scdn.co/image/ab67616d0000b273d9495d198c584e0e64f3ad9d" alt="" width="350" />}
             </div>
             <div>

@@ -32,7 +32,6 @@ console.log(error.message);
 
 }, [movieName])
 
-console.log(movies)
     
 const visibleMovies = movies.filter(movie => movie.title.toLowerCase().includes(movieName.toLowerCase()))
   
