@@ -3,9 +3,10 @@ import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Layout } from 'components/Layout';
+import { GoBackButton, InfoButtons, InfoDiv, Movie, MovieTitle, Poster } from 'components/styles/MovieDetails.styled';
 
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
     const [movie, setMovie] = useState([]);
     const { movieId } = useParams(); 
     const location = useLocation();
@@ -33,19 +34,28 @@ export const MovieDetails = () => {
   
     
     return <Layout>
-        <Link to={backLinkRef.current}>Go back</Link>
+        <GoBackButton type="button"><Link to={backLinkRef.current} style={{ color: "white", textDecoration: "none"}}>Go back</Link></GoBackButton>
+        <Movie>
+            <div>
         {poster_path
-            ? <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} width="350" />
-            : <img src="https://i.scdn.co/image/ab67616d0000b273d9495d198c584e0e64f3ad9d" alt="" width="350"/>}
-        <h2>{title}</h2>
+            ? <Poster src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} width="350" />
+                    : <Poster src="https://i.scdn.co/image/ab67616d0000b273d9495d198c584e0e64f3ad9d" alt="" width="350" />}
+            </div>
+            <div>
+        <MovieTitle>{title}</MovieTitle>
         <h3>Overview</h3>
         <p>{overview}</p>
         <h3>Genres</h3>
         {genres && <ul>{genres.map(genre => (<li key={genre.id}>{genre.name}</li>))}</ul>}
-        <ul>
-        <li><Link to="cast">Cast</Link></li>
-        <li><Link to="reviews">Reviews</Link></li>
-        </ul>
-        <Outlet/>
+            </div>
+        </Movie>
+        <InfoDiv>
+        <InfoButtons><Link to="cast" style={{ color: "white", textDecoration: "none"}}>Cast</Link></InfoButtons>
+        <InfoButtons><Link to="reviews" style={{ color: "white", textDecoration: "none"}}>Reviews</Link></InfoButtons>
+        </InfoDiv>
+        <Outlet />
+            
     </Layout>
 }
+
+export default MovieDetails;

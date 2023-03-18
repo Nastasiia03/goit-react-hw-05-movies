@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { Layout } from 'components/Layout';
+import { MovieItem } from 'components/styles/MovieList.styled';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
 
-export const Home = () => {
+const Home = () => {
   const [films, setFilms] = useState([]);
   const location = useLocation(); 
 
@@ -25,7 +26,9 @@ export const Home = () => {
     
 
     return <Layout>
-        <h2>Trending today</h2>
-        <ul>{films.map(film => (<li key={film.id}><Link to={`movies/${film.id}`} state={{from: location}}>{ film.title}</Link></li>))}</ul>
+        <h2>Trending today 📽️</h2>
+        <ul>{films.map(film => (<MovieItem key={film.id}><Link to={`movies/${film.id}`} state={{from: location}} style={{ color: "black", textDecoration: "none"}}>{ film.title}</Link></MovieItem>))}</ul>
     </Layout>
 }
+
+export default Home;

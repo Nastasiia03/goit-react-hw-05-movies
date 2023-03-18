@@ -1,19 +1,19 @@
+import { lazy, Suspense} from 'react';
 
-import { Home } from "pages/Home";
-import { MovieDetails } from "pages/MovieDetails";
-import { Movies } from "pages/Movies";
 
 import { Routes, Route, Link } from "react-router-dom";
 import { Cast } from "./Cast";
-import { Item, Nav } from "./Nav.styled";
+import { Item, Nav } from "./styles/Nav.styled";
 import { Reviews } from "./Reviews";
 
 
-
+const Home = lazy(() => import('../pages/Home'));
+const Movies = lazy(() => import('../pages/Movies'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails'));
 
 export const App = () => {
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <nav>
         <Nav>
           <Item><Link to="/" style={{ color: "white", textDecoration: "none"}}>Home</Link></Item>
@@ -28,6 +28,6 @@ export const App = () => {
         <Route path="reviews" element={<Reviews/>} />
         </Route>
       </Routes>
-    </div>
+    </Suspense>
   );
 };
